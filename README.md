@@ -23,3 +23,13 @@ add_filter('wpu_post_meta_rules__fields', function ($fields) {
     return $fields;
 });
 ```
+
+## Exclude posts
+
+Use the `wpu_post_meta_rules__exclude_post` filter to skip every rule for a given post.
+
+```php
+add_filter('wpu_post_meta_rules__exclude_post', function ($excluded, $post_id, $post) {
+    return in_array($post_id, array(42, 58));
+}, 10, 3);
+```

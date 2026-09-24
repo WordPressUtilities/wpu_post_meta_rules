@@ -5,7 +5,7 @@ Plugin Name: WPU Post Meta Rules
 Description: Block publication if some post metas dont match the defined rules
 Plugin URI: https://github.com/WordPressUtilities/wpu_post_meta_rules
 Update URI: https://github.com/WordPressUtilities/wpu_post_meta_rules
-Version: 0.1.0
+Version: 0.2.0
 Author: Darklg
 Author URI: https://darklg.me/
 Text Domain: wpu_post_meta_rules
@@ -67,6 +67,11 @@ class WPUPostMetaRules {
             return;
         }
         if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id) || $post->post_status != 'publish') {
+            return;
+        }
+
+        /* Allow excluding some posts from any rule */
+        if (apply_filters('wpu_post_meta_rules__exclude_post', false, $post_id, $post)) {
             return;
         }
 
